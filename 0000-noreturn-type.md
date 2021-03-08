@@ -119,7 +119,7 @@ class BadRedirector extends Redirector
 
 In the absence of an explicit return type some PHP static analysis tools have also adopted support for `noreturn` or similar:
 
-- Psalm and PHPStan support the docblock return type `/** @return noreturn */`
+- Psalm and PHPStan support the docblock return type `/** @return noreturn */` and `/** @return never */`
 - PHPStorm supports a custom PHP 8 attribute `#[JetBrains\PhpStorm\NoReturn]`
 
 ## Comparison to void
