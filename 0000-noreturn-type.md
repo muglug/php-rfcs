@@ -55,7 +55,7 @@ function redirect(string $uri) : noreturn {
     }
 }
 
-header(''); // Uncaught TypeError: redirect(): Nothing was expected to be returned
+redirect(''); // Uncaught TypeError: redirect(): Nothing was expected to be returned
 ```
 
 ## Applicability
