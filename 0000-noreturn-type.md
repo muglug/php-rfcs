@@ -19,6 +19,10 @@ function redirect(string $uri) : noreturn {
     header('Location: ' . $uri);
     exit();
 }
+
+function redirectToLoginPage() : noreturn {
+    redirect('/login');
+}
 ```
 
 PHP code can call this function safe in the knowledge that no statements after it will be evaluated:
@@ -26,7 +30,7 @@ PHP code can call this function safe in the knowledge that no statements after i
 ```php
 function sayHello(?User $user) {
     if (!$user) {
-        redirect('/login');
+        redirectToLoginPage();
     }
 
     echo 'Hello ' . $user->getName();
@@ -105,16 +109,71 @@ class BadRedirector extends Redirector
 }
 ```
 
-## Prior art in interpreted languages
+## Prior art in other interpreted languages
 
 - Hacklang has a [noreturn type](https://docs.hhvm.com/hack/built-in-types/noreturn). Slightly confusingly Hacklang also has an explicit bottom type called `nothing` that can be used anywhere `noreturn` can, but also in some other places too, like generics.
 - TypeScript has a [never type](https://www.typescriptlang.org/docs/handbook/basic-types.html#never) that's also an explicit bottom type.
 - Python added a [NoReturn type](https://docs.python.org/3/library/typing.html#typing.NoReturn) to its typing library.
 
+## Prior art in PHP static analysis tools
+
+In the absence of an explicit return type some PHP static analysis tools have also adopted support for `noreturn` or similar:
+
+- Psalm and PHPStan support the docblock return type `/** @return noreturn */`
+- PHPStorm supports a custom PHP 8 attribute `#[JetBrains\PhpStorm\NoReturn]`tt
+
+## Comparison to void
+
+Both `noreturn` and `void` are both only valid as return types, but there the similarity ends.
+
+When you call a function that returns `void` you generally expect PHP to execute the next statement after that function call.
+
+```php
+function sayHello(string $name) : void {
+    echo "Hello $name";
+}
+
+sayHello('World');
+echo ", it’s nice to meet you";
+```
+
+But when you call a function that returns `noreturn` you explicitly do not expect PHP to execute whatever statement follows:
+
+```php
+function redirect(string $uri) : noreturn {
+    header('Location: ' . $uri);
+    exit();
+}
+
+redirect('/index.html');
+echo "this will never be executed!";
+```
+
+## Attributes vs types
+
+Some might feel that `noreturn` belongs as a function/method attribute, potentially a root-namespaced one:
+
+```php
+#[\NoReturn]
+function redirectToLoginPage() : void {...}
+```
+
+```php
+function redirectToLoginPage() : noreturn {...}
+```
+
+I believe it’s more useful as a type. Internally PHP has a much more straightforward interpretation of return types than attributes, and PHP can quickly check variance rules for `noreturn` types just as it does for `void`. It's also just _neater_.
+
+## Naming
+
+Naming is hard, but I believe `noreturn` is the best name for this type.
+
+Two other alternatives, `never` and `nothing`, are much more likely to already be used as class names in existing PHP projects.
+
 # Backwards Incompatible Changes
 
-`noreturn` becomes a reserved word.
+`noreturn` becomes a reserved word in PHP 8.1
 
 # Proposed Voting Choices
 
-Simple yes/no vote.
+Yes/no vote for adding `noreturn`
