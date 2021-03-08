@@ -6,7 +6,22 @@
 
 # Introduction
 
-The `noreturn` type is designed to be used by functions that always `throw` or `exit`.
+The historical trend in PHP has always been to first express concepts via PHPDocs for various 3rd party tools, and once proven useful, move those concepts into native PHP syntax. Past examples are: [scalar typehints](https://wiki.php.net/rfc/scalar_type_hints_v5), [return types](https://wiki.php.net/rfc/return_types), [union types](https://wiki.php.net/rfc/union_types_v2), [mixed type](https://wiki.php.net/rfc/mixed_type_v2), [static type](https://wiki.php.net/rfc/static_return_type).
+
+Static analysis tools like [Psalm](https://psalm.dev/) and [PHPStan](https://phpstan.org/) need to know when a function always throws an exception or exits the process in order to perform precise type inference:
+
+```php
+function foo(?int $id): void
+{
+    if ($id === null) {
+        redirect('/homepage'); // always throws an exception
+    }
+    
+    // $id cannot be null!
+}
+```
+
+The `noreturn` type is designed to be used by functions that always `throw` or `exit`. 
 
 # Proposal
 
