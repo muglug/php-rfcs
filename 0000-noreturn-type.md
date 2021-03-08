@@ -29,7 +29,7 @@ function redirectToLoginPage() : noreturn {
 }
 ```
 
-PHP developers can call these functions safe in the knowledge that no statements after the function call will be evaluated:
+PHP developers can call these functions, safe in the knowledge that no statements after the function call will be evaluated:
 
 ```php
 function sayHello(?User $user) {
