@@ -124,7 +124,7 @@ class BadRedirector extends Redirector
 
 ### Allowed return types when a function always throws
 
-Since `noreturn` is a subtype of all other types, a function that _could_ be annotated with `noreturn` can still safely be annotated with a typehint:
+Since `noreturn` is a subtype of all other types, a function that _could_ be annotated with `noreturn` can still safely be annotated with another return type:
 
 ```php
 function doFoo(): int
@@ -200,7 +200,7 @@ Arguments for `noreturn`:
 Arguments for `never` are:
 
 * It's a single word - `noreturn` does not have any visual separator between the two words and one cannot be sensibly added e.g. `no-return`.
-* It's a full-fledged type, rather than a keyword used in a specific situation. A far-in-the-future generics proposal could use to indicate [contravariant generic types](https://docs.hhvm.com/hack/built-in-types/nothing#usages).
+* It's a full-fledged type, rather than a keyword used in a specific situation. A far-in-the-future generics proposal could use `never` as a placeholder inside [contravariant generic types](https://docs.hhvm.com/hack/built-in-types/nothing#usages).
 
 # Backwards Incompatible Changes
 
