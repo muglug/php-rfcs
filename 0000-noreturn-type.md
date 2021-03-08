@@ -2,7 +2,7 @@
  * Date: 2021-03-14
  * Author: Matt Brown <php@muglug.com>
  * Proposed Version: PHP 8.1
- * RFC PR: [php/php-rfcs#0000](https://github.com/php/php-rfcs/pull/0000)
+ * Implementation: https://github.com/php/php-src/compare/master...muglug:support-noreturn
 
 # Introduction
 
