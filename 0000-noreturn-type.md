@@ -194,6 +194,11 @@ Naming is hard, but I believe `noreturn` is the best name for this type.
 
 Two other alternatives, `never` and `nothing`, are much more likely to already be used as class names in existing PHP projects.
 
+Arguments for `never` are:
+
+* It's a single word - `noreturn` does not have any visual separator between the two words and one cannot be sensibly added - `no-return` does not have any precedent in PHP, neither does `noReturn`.
+* It's a full-fledged type rather than a keyword used in a specific situation. `never` type can be created for example when we ask to narrow a type to an empty set (when asking whether an `stdClass` object can be an instanceof `Exception`), or when we create an intersection type out of two classes.
+
 # Backwards Incompatible Changes
 
 `noreturn` becomes a reserved word in PHP 8.1
