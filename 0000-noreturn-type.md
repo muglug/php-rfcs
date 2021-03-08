@@ -138,7 +138,7 @@ function doFoo(): int
 
 - Hacklang has a [noreturn type](https://docs.hhvm.com/hack/built-in-types/noreturn).
 - TypeScript has a [never type](https://www.typescriptlang.org/docs/handbook/basic-types.html#never) that's also an explicit bottom type.
-- Python added a [NoReturn type](https://docs.python.org/3/library/typing.html#typing.NoReturn) to its typing library.
+- Python has a [NoReturn type](https://docs.python.org/3/library/typing.html#typing.NoReturn) as part of its official typing library.
 
 ## Prior art in PHP static analysis tools
 
@@ -199,13 +199,13 @@ Naming is hard, but we believe `noreturn` is the best name for this type.
 
 Arguments for `noreturn`:
 
-* Very unlikely to be used as an existing class name.
-* Describes the behaviour of the function.
+- Very unlikely to be used as an existing class name.
+- Describes the behaviour of the function.
 
-Arguments for `never` are:
+Arguments for `never`:
 
-* It's a single word - `noreturn` does not have any visual separator between the two words and one cannot be sensibly added e.g. `no-return`.
-* It's a full-fledged type, rather than a keyword used in a specific situation. A far-in-the-future generics proposal could use `never` as a placeholder inside [contravariant generic types](https://docs.hhvm.com/hack/built-in-types/nothing#usages).
+- It's a single word - `noreturn` does not have any visual separator between the two words and one cannot be sensibly added e.g. `no-return`.
+- It's a full-fledged type, rather than a keyword used in a specific situation. A far-in-the-future generics proposal could use `never` as a placeholder inside [contravariant generic types](https://docs.hhvm.com/hack/built-in-types/nothing#usages).
 
 # Backwards Incompatible Changes
 
