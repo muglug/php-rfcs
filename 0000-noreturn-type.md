@@ -66,10 +66,10 @@ function redirect(string $uri) : noreturn {
 redirect(''); // Uncaught TypeError: redirect(): Nothing was expected to be returned
 ```
 
-`noreturn` function cannot be used as a generator:
+A `noreturn` function cannot be used as a generator:
 
 ```php
-function list(string $uri) : noreturn {
+function generateList(string $uri) : noreturn {
     yield 1; // Fatal error: A noreturn function must not be a Generator
     exit();
 }
