@@ -133,6 +133,19 @@ class BadRedirector extends Redirector
 }
 ```
 
+## Allowed return types when a function always throws
+
+This is currently valid code:
+
+```php
+function doFoo(): int
+{
+    throw new \Exception();
+}
+```
+
+This RFC does not limit possible return types of a function that always throws, either by directly throwing an exception, or indirectly by calling a `noreturn` function, it would lead to unintended backwards compatibility breaks.
+
 ## Prior art in other interpreted languages
 
 - Hacklang has a [noreturn type](https://docs.hhvm.com/hack/built-in-types/noreturn).
