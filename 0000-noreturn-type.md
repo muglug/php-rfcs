@@ -1,12 +1,16 @@
  * Name: `noreturn-type`
  * Date: 2021-03-14
- * Author: Matt Brown <php@muglug.com>
+ * Author: Matt Brown & Ondřej Mirtes
  * Proposed Version: PHP 8.1
  * Implementation: https://github.com/php/php-src/compare/master...muglug:support-noreturn
 
 # Introduction
 
-The `noreturn` type is designed to be used by functions that always `throw` or `exit`.
+There has been a trend over the past few years that concepts initially just expressed in PHP docblocks become native PHP types.
+
+Past examples are: [scalar typehints](https://wiki.php.net/rfc/scalar_type_hints_v5), [return types](https://wiki.php.net/rfc/return_types), [union types](https://wiki.php.net/rfc/union_types_v2), [mixed type](https://wiki.php.net/rfc/mixed_type_v2), [static type](https://wiki.php.net/rfc/static_return_type).
+
+Our static analysis tools currently provide support for `/** @return noreturn */` to denote functions that always `throw` or `exit`. Users of our static analysis tools have found that syntax useful to describe the behaviour of their own code, but we think it’s even more useful as a native return type `: noreturn`, where PHP compile-time and runtime type-checks can guarantee its behaviour.
 
 # Proposal
 
@@ -25,7 +29,7 @@ function redirectToLoginPage() : noreturn {
 }
 ```
 
-PHP code can call this function safe in the knowledge that no statements after it will be evaluated:
+PHP developers can call these functions safe in the knowledge that no statements after the function call will be evaluated:
 
 ```php
 function sayHello(?User $user) {
@@ -62,6 +66,15 @@ function redirect(string $uri) : noreturn {
 redirect(''); // Uncaught TypeError: redirect(): Nothing was expected to be returned
 ```
 
+`noreturn` function cannot be used as a generator:
+
+```php
+function list(string $uri) : noreturn {
+    yield 1; // Fatal error: A noreturn function must not be a Generator
+    exit();
+}
+```
+
 ## Applicability
 
 Like `void`, the `noreturn` type is only valid when used as a function return type. Using `noreturn` as an argument or property type produces a compile-time error:
@@ -74,7 +87,7 @@ class A {
 
 ## Variance
 
-In type-theory `noreturn` would be called a "bottom" type. That means it's effectively a subtype of every other type in PHP’s type system, including `void`.
+In type theory `noreturn` would be called a "bottom" type. That means it's effectively a subtype of every other type in PHP’s type system, including `void`.
 
 It obeys the rules you might expect of a universal subtype:
 
@@ -106,6 +119,17 @@ abstract class Redirector
 class BadRedirector extends Redirector
 {
     public function execute() : void {} // Fatal error
+}
+```
+
+### Allowed return types when a function always throws
+
+Since `noreturn` is a subtype of all other types, a function that _could_ be annotated with `noreturn` can still safely be annotated with another return type:
+
+```php
+function doFoo(): int
+{
+    throw new \Exception();
 }
 ```
 
@@ -162,13 +186,21 @@ function redirectToLoginPage() : void {...}
 function redirectToLoginPage() : noreturn {...}
 ```
 
-I believe it’s more useful as a type. Internally PHP has a much more straightforward interpretation of return types than attributes, and PHP can quickly check variance rules for `noreturn` types just as it does for `void`. It's also just _neater_.
+We believe it’s more useful as a type. Internally PHP has a much more straightforward interpretation of return types than attributes, and PHP can quickly check variance rules for `noreturn` types just as it does for `void`. It's also tidier.
 
 ## Naming
 
-Naming is hard, but I believe `noreturn` is the best name for this type.
+Naming is hard, but we believe `noreturn` is the best name for this type.
 
-Two other alternatives, `never` and `nothing`, are much more likely to already be used as class names in existing PHP projects.
+Arguments for `noreturn`:
+
+* Very unlikely to be used as an existing class name.
+* Describes the behaviour of the function.
+
+Arguments for `never` are:
+
+* It's a single word - `noreturn` does not have any visual separator between the two words and one cannot be sensibly added e.g. `no-return`.
+* It's a full-fledged type, rather than a keyword used in a specific situation. A far-in-the-future generics proposal could use `never` as a placeholder inside [contravariant generic types](https://docs.hhvm.com/hack/built-in-types/nothing#usages).
 
 # Backwards Incompatible Changes
 
