@@ -111,7 +111,7 @@ class BadRedirector extends Redirector
 
 ## Prior art in other interpreted languages
 
-- Hacklang has a [noreturn type](https://docs.hhvm.com/hack/built-in-types/noreturn). Slightly confusingly Hacklang also has an explicit bottom type called `nothing` that can be used anywhere `noreturn` can, but also in some other places too, like generics.
+- Hacklang has a [noreturn type](https://docs.hhvm.com/hack/built-in-types/noreturn).
 - TypeScript has a [never type](https://www.typescriptlang.org/docs/handbook/basic-types.html#never) that's also an explicit bottom type.
 - Python added a [NoReturn type](https://docs.python.org/3/library/typing.html#typing.NoReturn) to its typing library.
 
