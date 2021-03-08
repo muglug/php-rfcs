@@ -6,7 +6,7 @@
 
 # Introduction
 
-There has been a trend over the past few years that concepts initially just expressed in PHP docblocks have become native PHP types.
+There has been a trend over the past few years that concepts initially just expressed in PHP docblocks become native PHP types.
 
 Past examples are: [scalar typehints](https://wiki.php.net/rfc/scalar_type_hints_v5), [return types](https://wiki.php.net/rfc/return_types), [union types](https://wiki.php.net/rfc/union_types_v2), [mixed type](https://wiki.php.net/rfc/mixed_type_v2), [static type](https://wiki.php.net/rfc/static_return_type).
 
