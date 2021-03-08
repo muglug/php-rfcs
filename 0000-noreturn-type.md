@@ -62,6 +62,15 @@ function redirect(string $uri) : noreturn {
 redirect(''); // Uncaught TypeError: redirect(): Nothing was expected to be returned
 ```
 
+`noreturn` function cannot be used as a generator:
+
+```php
+function list(string $uri) : noreturn {
+    yield 1; // Fatal error: A noreturn function must not be a Generator
+    exit();
+}
+```
+
 ## Applicability
 
 Like `void`, the `noreturn` type is only valid when used as a function return type. Using `noreturn` as an argument or property type produces a compile-time error:
