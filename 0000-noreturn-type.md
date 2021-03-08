@@ -178,10 +178,14 @@ echo "this will never be executed!";
 
 Some might feel that `noreturn` belongs as a function/method attribute, potentially a root-namespaced one:
 
+Attribute form:
+
 ```php
 #[\NoReturn]
 function redirectToLoginPage() : void {...}
 ```
+
+Type form:
 
 ```php
 function redirectToLoginPage() : noreturn {...}
