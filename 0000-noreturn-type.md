@@ -6,11 +6,11 @@
 
 # Introduction
 
-The "noreturn" type is designed to be used by functions that never return a value.
+The `noreturn` type is designed to be used by functions that always `throw` or `exit`.
 
 # Proposal
 
-Introduce a `noreturn` type that can be used in functions that never return a value.
+Introduce a `noreturn` type that can be used in functions that always `throw` or `exit`.
 
 A redirect function is an obvious candidate:
 
