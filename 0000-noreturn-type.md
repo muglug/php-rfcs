@@ -74,7 +74,7 @@ class A {
 
 ## Variance
 
-In type-theory `noreturn` would be called a "bottom" type. That means it's effectively a subtype of every other type in PHP’s type system, including `void`.
+In type theory `noreturn` would be called a "bottom" type. That means it's effectively a subtype of every other type in PHP’s type system, including `void`.
 
 It obeys the rules you might expect of a universal subtype:
 
