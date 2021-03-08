@@ -6,9 +6,9 @@
 
 # Introduction
 
-There has been a trend over the past few years that concepts initially just expressed in PHP docblocks become native PHP types.
+There has been a trend over the past few years that concepts initially just expressed in PHP docblocks eventually become native PHP types.
 
-Past examples are: [scalar typehints](https://wiki.php.net/rfc/scalar_type_hints_v5), [return types](https://wiki.php.net/rfc/return_types), [union types](https://wiki.php.net/rfc/union_types_v2), [mixed type](https://wiki.php.net/rfc/mixed_type_v2), [static type](https://wiki.php.net/rfc/static_return_type).
+Past examples are: [scalar typehints](https://wiki.php.net/rfc/scalar_type_hints_v5), [return types](https://wiki.php.net/rfc/return_types), [union types](https://wiki.php.net/rfc/union_types_v2), [mixed types](https://wiki.php.net/rfc/mixed_type_v2), and [static types](https://wiki.php.net/rfc/static_return_type).
 
 Our static analysis tools currently provide support for `/** @return noreturn */` to denote functions that always `throw` or `exit`. Users of our static analysis tools have found that syntax useful to describe the behaviour of their own code, but we think it’s even more useful as a native return type `: noreturn`, where PHP compile-time and runtime type-checks can guarantee its behaviour.
 
